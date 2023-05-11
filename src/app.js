@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import {getPlural} from "./utils";
 
 /**
  * Приложение
@@ -26,7 +27,7 @@ function App({store}) {
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>{`${item.title}
-                ${item.selectCount ? `| Выделяли ${item.selectCount} раз` : ''}`}
+                ${item.selectCount ? `| Выделяли ${item.selectCount} ${getPlural(item.selectCount)}` : ''}`}
                 </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>

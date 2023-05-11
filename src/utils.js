@@ -41,3 +41,13 @@ export function generateUniqueNumber(list) {
     return randomNumber; // если такого кода нет, то возвращаем это число
   }
 }
+
+export function getPlural(number) {
+  if (number % 10 === 1 && number % 100 !== 11) {
+    return 'раз';
+  } else if ([2, 3, 4].includes(number % 10) && ![12, 13, 14].includes(number % 100)) {
+    return 'раза';
+  } else {
+    return 'раз';
+  }
+}
