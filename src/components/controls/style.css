@@ -2,4 +2,15 @@
   display: flex;
   justify-content: flex-end;
   padding: 20px;
+  border-bottom: 1px dashed #ccc;
+  min-height: 16px;
+}
+.Controls-title {
+  margin-right: 12px;
+  font-size: 18px;
+}
+.Controls-info {
+  margin-right: 20px;
+  font-size: 18px;
+  font-weight: 700;
 }

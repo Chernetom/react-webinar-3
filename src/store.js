@@ -1,4 +1,4 @@
-import {generateCode} from "./utils";
+import {culcTotalPrice, generateCode} from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -82,6 +82,45 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
+  };
+
+  addItemToCart(item) {
+    const findItem = this.state.cartList.find((obj) => obj.code === item.code);
+
+    if (findItem) {
+      const updatedCartList = this.state.cartList.map((obj) => {
+        if (obj.code === item.code) {
+          return {
+            ...obj,
+            count: obj.count + 1
+          };
+        }
+        return obj;
+      });
+
+      this.setState({
+        ...this.state,
+        cartList: updatedCartList,
+        totalPrice: culcTotalPrice(updatedCartList)
+      });
+    } else {
+      const updatedCartList = [...this.state.cartList, { ...item, count: 1 }];
+      this.setState({
+        ...this.state,
+        cartList: updatedCartList,
+        totalPrice: culcTotalPrice(updatedCartList)
+      });
+    }
+  };
+
+
+  deleteItemFromCart(item) {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      cartList: this.state.cartList.filter(obj => obj.code !== item.code)
+    })
+    this.state.totalPrice = culcTotalPrice(this.state.cartList);
   }
 }
 

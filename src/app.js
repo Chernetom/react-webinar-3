@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -12,28 +13,41 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const list = store.getState().list;
+  const cartList = store.getState().cartList;
+  const totalPrice = store.getState().totalPrice;
+  let [isModalVisible, changeIsModalVisible] = useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    onAddItemToCart: useCallback((item) => {
+      store.addItemToCart(item);
+    },[store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onDeleteItemFromCart: useCallback((item) => {
+      store.deleteItemFromCart(item);
+    },[store]),
+
+    handleClick: useCallback(() => {
+      changeIsModalVisible(isModalVisible = !isModalVisible);
+    },[store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Head title='Магазин'/>
+      <Controls cartList={cartList}
+                totalPrice={totalPrice}
+                handleClick={callbacks.handleClick}
+      />
       <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            onChangeItemInCart={callbacks.onAddItemToCart}
+      />
+      {isModalVisible && // Переменная isModalVisible используется для отображения модального окна
+        <Cart cartList={cartList}
+              totalPrice={totalPrice}
+              handleClick={callbacks.handleClick}
+              onChangeItemInCart={callbacks.onDeleteItemFromCart}
+        />}
     </PageLayout>
   );
 }
