@@ -53,3 +53,10 @@ export function generateCode2() {
 export const culcTotalPrice = (items) => {
   return   items.reduce((sum, obj) => (obj.price * obj.count) + sum, 0);
 }
+
+export const formatter = new Intl.NumberFormat('ru-RU', {
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
+  style: 'currency',
+  currency: 'RUB',
+});

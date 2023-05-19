@@ -2,18 +2,26 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
+import CartItem from "../cart-item";
 
-function List({list, onChangeItemInCart, usedInCart}){
+function List(props){
   return (
     <div className='List'>{
-      list.map(item =>
+      props.list.length ? props.list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item}
-                onChangeItemInCart={onChangeItemInCart}
-                usedInCart={usedInCart}
-          />
+            <Item item={item}
+                  onChangeItemInCart={props.onChangeItemInCart}
+            />
         </div>
-      )}
+      ) :
+        props.cartList.length ? props.cartList.map(item =>
+          <div key={item.code} className='List-item'>
+            <CartItem item={item}
+                  onChangeItemInCart={props.onChangeItemInCart}
+            />
+          </div>
+        ) : null
+    }
     </div>
   )
 }

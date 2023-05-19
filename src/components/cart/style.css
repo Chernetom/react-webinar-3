@@ -1,36 +1,12 @@
-.Cart {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.Cart-block {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  width: 50%;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
 .Cart-totalPrice {
-  display: flex;
-  justify-content: flex-end;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 21px;
-  margin: 20px 120px 89px 0;
-}
-.Cart-totalPrice-label {
-  margin-right: 53px;
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    margin: 20px 120px 89px 0;
 }
 
+.Cart-totalPrice-label {
+    margin-right: 53px;
+}

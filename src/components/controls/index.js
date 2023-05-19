@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
-import {plural} from "../../utils";
+import {formatter, plural} from "../../utils";
 
 function Controls(props){
 
@@ -13,7 +13,7 @@ function Controls(props){
           {props.cartList.length > 0 ? // Если cartList не пустой, то выводится нужный вариант или же 'пусто'
             `${props.cartList.length} 
             ${plural(props.cartList.length, {one: 'товар', few: 'товара', many:'товаров'})} / 
-            ${props.totalPrice} ₽` : 'пусто'
+            ${formatter.format(props.totalPrice)}` : 'пусто'
           }
         </div>
         <button onClick={props.handleClick}>Перейти</button>
