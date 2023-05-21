@@ -5,6 +5,7 @@ import Head from "../head";
 import Controls from "../controls";
 import List from "../list";
 import {formatter} from "../../utils";
+import CartItem from "../cart-item";
 
 function Cart(props){
 
@@ -15,9 +16,11 @@ function Cart(props){
             handleClick={props.handleClick}
       />
       <Controls fullClear ={true}/>
-      <List cartList={props.cartList}
+      <List list={props.list}
             onChangeItemInCart={props.onChangeItemInCart}
-      />
+      >
+        <CartItem/>
+      </List>
       <div className='Cart-totalPrice'>
         <span className='Cart-totalPrice-label'>Итого</span>
         <span className='Cart-totalPrice-value'>{formatter.format(props.totalPrice)}</span>

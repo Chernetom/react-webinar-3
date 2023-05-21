@@ -6,6 +6,7 @@ import PageLayout from "./components/page-layout";
 import Modal from "./components/modal";
 import Cart from "./components/cart";
 import './index.css';
+import Item from "./components/item";
 
 /**
  * Приложение
@@ -50,12 +51,14 @@ function App({store}) {
         />
         <List list={list}
               onChangeItemInCart={callbacks.onAddItemToCart}
-        />
+        >
+          <Item/>
+        </List>
       </PageLayout>
       {isModalVisible && // Переменная isModalVisible используется для отображения модального окна
       // document.body.App.style.overflow = 'hidden'
         <Modal>
-          <Cart cartList={cartList}
+          <Cart list={cartList}
                 totalPrice={totalPrice}
                 handleClick={callbacks.handleCloseModal}
                 onChangeItemInCart={callbacks.onDeleteItemFromCart}
