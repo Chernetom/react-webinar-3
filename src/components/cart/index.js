@@ -7,6 +7,7 @@ import List from "../list";
 import {formatter} from "../../utils";
 
 function Cart(props){
+
   return (
     <>
       <Head title='Корзина'

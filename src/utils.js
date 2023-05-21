@@ -50,10 +50,6 @@ export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
 
-export const culcTotalPrice = (items) => {
-  return   items.reduce((sum, obj) => (obj.price * obj.count) + sum, 0);
-}
-
 export const formatter = new Intl.NumberFormat('ru-RU', {
   minimumFractionDigits: 0,
   maximumFractionDigits: 2,

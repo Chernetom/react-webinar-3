@@ -5,6 +5,7 @@ import Head from "./components/head";
 import PageLayout from "./components/page-layout";
 import Modal from "./components/modal";
 import Cart from "./components/cart";
+import './index.css';
 
 /**
  * Приложение
@@ -13,50 +14,55 @@ import Cart from "./components/cart";
  */
 function App({store}) {
 
-  const list = store.getState().list;
-  const cartList = store.getState().cartList;
-  const totalPrice = store.getState().totalPrice;
+  const {list, cartList, totalPrice, cartListLength} = store.getState();
   let [isModalVisible, changeIsModalVisible] = useState(false);
 
   const callbacks = {
-
-    onAddItemToCart: useCallback((item) => {
-      store.addItemToCart(item);
+    onAddItemToCart: useCallback((code) => {
+      store.addItemToCart(code);
     },[store]),
 
-    onDeleteItemFromCart: useCallback((item) => {
-      store.deleteItemFromCart(item);
+    onDeleteItemFromCart: useCallback((code) => {
+      store.deleteItemFromCart(code);
+    },[store]),
+    // Заменил старую функцию handleClick на handleOpenModal и handleCloseModal,
+    // которая добавляет стиль к body для корректного отображения скролла
+    // скорее всего это не корректо, но это то до чего я додумался)
+
+    handleOpenModal: useCallback(() => {
+      changeIsModalVisible(true);
+      document.body.classList.add('no-scroll');
     },[store]),
 
-    handleClick: useCallback(() => {
-      changeIsModalVisible(isModalVisible = !isModalVisible);
-    },[store])
+    handleCloseModal: useCallback(() => {
+      changeIsModalVisible(false);
+      document.body.classList.remove('no-scroll');
+    },[store]),
   }
 
   return (
     <>
       <PageLayout>
         <Head title='Магазин'/>
-        <Controls cartList={cartList}
+        <Controls cartListLength={cartListLength}
                   totalPrice={totalPrice}
-                  handleClick={callbacks.handleClick}
+                  handleClick={callbacks.handleOpenModal}
         />
         <List list={list}
               onChangeItemInCart={callbacks.onAddItemToCart}
         />
       </PageLayout>
       {isModalVisible && // Переменная isModalVisible используется для отображения модального окна
+      // document.body.App.style.overflow = 'hidden'
         <Modal>
           <Cart cartList={cartList}
                 totalPrice={totalPrice}
-                handleClick={callbacks.handleClick}
+                handleClick={callbacks.handleCloseModal}
                 onChangeItemInCart={callbacks.onDeleteItemFromCart}
           />
         </Modal>
       }
     </>
-
-
   );
 }
 

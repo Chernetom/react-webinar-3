@@ -5,6 +5,7 @@ import './style.css';
 import CartItem from "../cart-item";
 
 function List(props){
+
   return (
     <div className='List'>{
       props.list.length ? props.list.map(item =>

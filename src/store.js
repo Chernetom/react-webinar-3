@@ -1,4 +1,4 @@
-import {culcTotalPrice, generateCode} from "./utils";
+import { generateCode} from "./utils";
 
 /**
  * Хранилище состояния приложения
@@ -84,33 +84,33 @@ class Store {
     })
   };
 
-  addItemToCart(item) {
-    const findItem = this.state.cartList.find((obj) => obj.code === item.code);
+  addItemToCart(code) {
+    // Переделал функцию для добавления item теперь добавляется по коду
+    // Теперь функция должна роботать быстрее потому что
+    // в цикле происходит обход не всего массива, а только до нужного code
+    const { cartList, list } = this.state;
+    let updatedCartList = [...cartList];
+    let itemUpdated = false; // Для отслеживания обновления элемента
 
-    if (findItem) {
-      const updatedCartList = this.state.cartList.map((obj) => {
-        if (obj.code === item.code) {
-          return {
-            ...obj,
-            count: obj.count + 1
-          };
-        }
-        return obj;
-      });
-
-      this.setState({
-        ...this.state,
-        cartList: updatedCartList,
-        totalPrice: culcTotalPrice(updatedCartList)
-      });
-    } else {
-      const updatedCartList = [...this.state.cartList, { ...item, count: 1 }];
-      this.setState({
-        ...this.state,
-        cartList: updatedCartList,
-        totalPrice: culcTotalPrice(updatedCartList)
-      });
+    for (let i = 0; i < updatedCartList.length; i++) {
+      if (updatedCartList[i].code === code) {
+        updatedCartList[i].count++;
+        itemUpdated = true;
+        break;
+      }
     }
+
+    if (!itemUpdated) {
+      const addedItem = list.find((obj) => obj.code === code);
+      updatedCartList.push({ ...addedItem, count: 1 });
+    }
+
+    this.setState({
+      ...this.state,
+      cartList: updatedCartList,
+      totalPrice: this.culcTotalPrice(updatedCartList),
+      cartListLength: updatedCartList.length
+    });
   };
 
 
@@ -120,7 +120,13 @@ class Store {
       // Новый список, в котором не будет удаляемой записи
       cartList: this.state.cartList.filter(obj => obj.code !== item.code)
     })
-    this.state.totalPrice = culcTotalPrice(this.state.cartList);
+    this.state.totalPrice = this.culcTotalPrice(this.state.cartList);
+    this.state.cartListLength = this.state.cartList.length;
+  };
+  // перенёс функцию culcTotalPrice внутрь store
+
+  culcTotalPrice = (items) => {
+    return   items.reduce((sum, obj) => (obj.price * obj.count) + sum, 0);
   }
 }
 

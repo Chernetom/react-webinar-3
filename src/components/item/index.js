@@ -7,7 +7,7 @@ function Item(props){
 
   const callbacks = {
     onChangeItemInCart: () => {
-      props.onChangeItemInCart(props.item);
+      props.onChangeItemInCart(props.item.code);
     }
   }
 
@@ -33,7 +33,6 @@ Item.propTypes = {
 };
 
 Item.defaultProps = {
-  item: [],
   onChangeItemInCart: () => {}
 }
 

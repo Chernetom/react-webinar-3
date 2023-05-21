@@ -10,9 +10,9 @@ function Controls(props){
       {!props.fullClear && <>
         <div className='Controls-title'>В корзине:</div>
         <div className='Controls-info'>
-          {props.cartList.length > 0 ? // Если cartList не пустой, то выводится нужный вариант или же 'пусто'
-            `${props.cartList.length} 
-            ${plural(props.cartList.length, {one: 'товар', few: 'товара', many:'товаров'})} / 
+          {props.cartListLength > 0 ? // Если cartList не пустой, то выводится нужный вариант или же 'пусто'
+            `${props.cartListLength} 
+            ${plural(props.cartListLength, {one: 'товар', few: 'товара', many:'товаров'})} / 
             ${formatter.format(props.totalPrice)}` : 'пусто'
           }
         </div>

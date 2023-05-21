@@ -21,6 +21,7 @@ Head.propTypes = {
 
 Head.defaultProps = {
   title: '',
+  closeButton: false,
   handleClick: () => {}
 };
 
