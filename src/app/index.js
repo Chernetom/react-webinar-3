@@ -18,16 +18,15 @@ function App() {
           <Route path='/' element={
             <>
               <Main/>
-              {activeModal === 'basket' && <Basket/>}
             </>
           }/>
-          <Route path='/:id' element={
+          <Route path='/articles/:id' element={
             <>
               <ItemLayout/>
-              {activeModal === 'basket' && <Basket/>}
             </>
           }/>
       </Routes>
+      {activeModal === 'basket' && <Basket/>}
       {/*<Main/>*/}
       {/*{activeModal === 'basket' && <Basket/>}*/}
     </>

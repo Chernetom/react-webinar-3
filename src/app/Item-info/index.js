@@ -6,6 +6,9 @@ import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import ItemDescription from "../../components/item-description";
 import {useParams} from "react-router-dom";
+import DualAlign from "../../components/dual-align";
+import NavMenu from "../../components/nav-menu";
+import Spinner from "../../components/spinner";
 
 function ItemInfo() {
 
@@ -20,6 +23,7 @@ function ItemInfo() {
     item: state.itemDescription.item,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    isFetching: state.itemDescription.isFetching
   }));
 
   const callbacks = {
@@ -32,8 +36,12 @@ function ItemInfo() {
   return (
     <PageLayout>
       <Head title={select.item.title}/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
+      <DualAlign leftComponent={<NavMenu />}
+                 rightComponent={<BasketTool onOpen={callbacks.openModalBasket}
+                                             amount={select.amount}
+                                             sum={select.sum}/>}
+      />
+      {select.isFetching && <Spinner/>}
       <ItemDescription item={select.item} onAdd={callbacks.addToBasket}/>
     </PageLayout>
   );
