@@ -14,6 +14,8 @@ class Catalog extends StoreModule {
       count: 0, // для общего количества item
       pagesCount: 0,
       activePage: 0,
+      limit: 10,
+      skip: 0,
       isFetching: false
     }
   }
@@ -33,6 +35,13 @@ class Catalog extends StoreModule {
        activePage: Math.floor(skip / limit) + 1,
        isFetching: false
     }, 'Загружены товары из АПИ');
+  }
+
+  setSkip (value) {
+    this.setState({
+      ...this.getState(),
+      skip: value
+    },'Изменение значения Skip');
   }
 }
 
