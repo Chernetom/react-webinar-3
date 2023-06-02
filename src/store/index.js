@@ -10,6 +10,7 @@ class Store {
     this.state = initState;
     /** @type {{
      * basket: BasketState,
+     * categories: CategoriesState,
      * catalog: CatalogState,
      * modals: ModalsState,
      * article: ArticleState,
@@ -39,6 +40,7 @@ class Store {
    * Выбор состояния
    * @returns {{
    * basket: Object,
+   * categories: Object,
    * catalog: Object,
    * modals: Object,
    * article: Object,
