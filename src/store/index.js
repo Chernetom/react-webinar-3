@@ -14,7 +14,9 @@ class Store {
      * catalog: CatalogState,
      * modals: ModalsState,
      * article: ArticleState,
-     * locale: LocaleState
+     * locale: LocaleState,
+     * login: LoginState,
+     * profile: ProfileState
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
@@ -44,7 +46,9 @@ class Store {
    * catalog: Object,
    * modals: Object,
    * article: Object,
-   * locale: Object
+   * locale: Object,
+   * login: Object,
+   * profile: Object
    * }}
    */
   getState() {
@@ -54,6 +58,7 @@ class Store {
   /**
    * Установка состояния
    * @param newState {Object}
+   * @param description {String}
    */
   setState(newState, description = 'setState') {
     console.group(
