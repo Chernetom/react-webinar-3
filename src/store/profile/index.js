@@ -5,6 +5,7 @@ class ProfileState extends StoreModule {
     return {
       user: undefined,
       isLoading: true,
+      loggedIn: false
     };
   }
 
@@ -14,7 +15,7 @@ class ProfileState extends StoreModule {
    */
   async getUser() {
     const token = window.localStorage.getItem("token");
-    let userData;
+    let userData = undefined;
     if (token) {
       this.setState({
         ...this.getState(),
@@ -25,6 +26,10 @@ class ProfileState extends StoreModule {
       });
       const {result: user} = await userResponse.json();
       userData = {user};
+      this.setState({
+        ...this.getState(),
+        loggedIn: true
+      });
     }
     this.setState({
       ...this.getState(),

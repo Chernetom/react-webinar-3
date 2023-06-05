@@ -7,8 +7,7 @@ class LoginState extends StoreModule {
 
   initState() {
     return {
-      errorMessage: '',
-      isUserLoading: true
+      errorMessage: ''
     };
   }
 
@@ -55,14 +54,6 @@ class LoginState extends StoreModule {
    */
   setUser ({token, user}) {
     window.localStorage.setItem("token", token);
-    this.store.actions.profile.setState(
-      {
-        ...this.getState(),
-        user
-      },
-      'Установлен токен пользователя и передане user в state'
-    );
-    console.log(user)
     location.reload();
   }
 
@@ -93,7 +84,7 @@ class LoginState extends StoreModule {
     const token = localStorage.getItem('token')
     await this.load("sign", {method: 'DELETE', headers: {'X-Token': token}});
     window.localStorage.removeItem("token");
-    this.store.actions.profile.setState({...this.getState(), user: undefined})
+    location.reload();
   }
 }
 

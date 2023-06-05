@@ -17,14 +17,14 @@ const LoginForm = () => {
 
   const callbacks = {
     // Отправка формы
-    handleSubmit: useCallback((e) => {
+    handleSubmit: useCallback(async(e) => {
       e.preventDefault();
       const [loginContent, passwordContent] = e.target;
       const data = {
         login: loginContent.value,
         password: passwordContent.value,
       };
-      store.actions.login.signIn(data);
+      await store.actions.login.signIn(data);
     }, [store])
   };
 
@@ -37,7 +37,7 @@ const LoginForm = () => {
       </label>
       <label>
         {t('login.passwordLabel')}
-        <input />
+        <input type='password' />
       </label>
       {errorMessage && <AdditionalMessage type='error'>{t(errorMessage)}</AdditionalMessage>}
       <button type='submit'>{t('login.loginBtn')}</button>

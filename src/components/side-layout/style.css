@@ -3,8 +3,7 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   padding: 0;
-  margin-left: -5px;
-  margin-right: -5px;
+
   align-items: center;
 }
 
@@ -54,4 +53,8 @@
 
 .SideLayout_gap_medium {
   gap: 0 20px;
+}
+
+.SideLayout_border_bottom {
+  border-bottom: 1px solid #CCCCCC;
 }

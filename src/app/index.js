@@ -18,9 +18,8 @@ function App() {
   const store = useStore();
 
   const activeModal = useSelector(state => state.modals.name);
-  const {user, isUserLoading} = useSelector((state) => ({
-    user: state.profile.user,
-    isUserLoading: state.profile.isLoading,
+  const {loggedIn} = useSelector((state) => ({
+    loggedIn: state.profile.loggedIn
   }));
 
   useInit(
@@ -37,17 +36,17 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route
-          path={"/login"}
+          path={'/login'}
           element={
-            <AuthProtection isAuth={!user}>
+            <AuthProtection isAuth={!loggedIn} url='/profile'>
               <Login />
             </AuthProtection>
           }
         />
         <Route
-          path={"/profile"}
+          path={'/profile'}
           element={
-            <AuthProtection isAuth={user} url='/login'>
+            <AuthProtection isAuth={loggedIn} url='/login'>
               <Profile />
             </AuthProtection>
           }

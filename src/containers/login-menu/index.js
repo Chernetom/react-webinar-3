@@ -11,9 +11,8 @@ const LoginMenu = () => {
 
   const {t} = useTranslate();
 
+  const loggedIn = useSelector((state) => state.profile.loggedIn);
   const user = useSelector((state) => state.profile.user);
-
-
 
   const callbacks = {
     // Выход из аккаунта
@@ -21,9 +20,9 @@ const LoginMenu = () => {
   };
 
   return (
-    <SideLayout side='end' paddingX='medium' paddingY='small' gap='medium'>
-      {user && <Link to={'/profile'}>{user.profile.name}</Link>}
-      {user ? (
+    <SideLayout side='end' paddingX='medium' paddingY='small' gap='medium' border='bottom'>
+      {loggedIn && <Link to={'/profile'}>{user.profile.name}</Link>}
+      {loggedIn ? (
         <button onClick={callbacks.handleLogout}>{t('login.exit')}</button>
       ) : (
         <Link to={'/login'}>
